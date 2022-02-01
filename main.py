@@ -13,4 +13,19 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#TODO Создать приложение blog
+# Создать два дополнительных маршрута blog/...
+# Придумать какие поля будут в таблице данного приложения
+# Существующие типы полей в БД можно посмотреть здесь: https://oracleplsql.ru/data-types-sqlite.html
+
+#TODO (Опционально) Скачать SqLiteStudio
+
+#TODO Продолжить выполнение заданий на сайте степика
+
+#TODO Попробовать вернуть в качестве ответа html страничку (на маршруте blog/)
+
+#TODO Вспомнил расшифровку:
+# MCV - MTV
+# Model - Model
+# Controller - Template
+# View - View
