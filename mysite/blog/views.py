@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def search():
+def search(request):
     return HttpResponse('Search :')
-def ribbon():
+def ribbon(request):
     return HttpResponse("Ribbon")
-def home():
+def home(request):
     return HttpResponse("Home")

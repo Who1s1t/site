@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #TODO Сюда добавляем дополнительные ветки
     path('', include('news.urls')),
-    path('', include('blog.urls'))
+    path('blog/', include('blog.urls'))
 ]
