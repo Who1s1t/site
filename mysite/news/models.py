@@ -1,13 +1,11 @@
 from django.db import models
-#TODO Найти соответствующие типы атрибутов(полей) для модели на сайте django.fun
-# Типы в базе данных следующие
-# id - int
-# caption - VarChar
-# text - Text
-# created_at - DateTime
-# updated_at - DateTime
-# photo - Image
-# is_published - Boolean
 
-# class MyModel(models.Model):
 
+class MyModel(models.Model):
+    # id = models.BigIntegerField()
+    caption = models.CharField(max_length=22,default=None)
+    text = models.TextField(default=None)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    photo = models.ImageField(upload_to="photo/", height_field=500, width_field=500,default="/photo/img.png")
+    is_published = models.BooleanField(default=True)
