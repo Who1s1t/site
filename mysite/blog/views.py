@@ -6,4 +6,4 @@ def search(request):
 def ribbon(request):
     return HttpResponse("Ribbon")
 def home(request):
-    return HttpResponse("Home")
+    return render(request,'blog/index.html',)
