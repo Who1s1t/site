@@ -5,3 +5,5 @@ def search():
     return HttpResponse('Search :')
 def ribbon():
     return HttpResponse("Ribbon")
+def home():
+    return HttpResponse("Home")
