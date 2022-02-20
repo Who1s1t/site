@@ -35,6 +35,6 @@ def archiveset(request):
     print(news)
     context = {
         "news": news,
-        "title": "Список новостей"
+        "title": f"Список новостей {request.get_full_path()[9:-1]}"
     }
     return render(request, "news/test.html", context)
