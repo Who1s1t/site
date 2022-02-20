@@ -29,7 +29,7 @@ def archive(request):
 
 
 def archiveset(request):
-    date = list(map(int,request.get_full_path()[9:-1].split('-')))
+    date = list(map(int, request.get_full_path()[9:-1].split('-')))
     print(date)
     news = MyModel.objects.filter(created_at__date=datetime.date(date[0], date[1], date[2]))
     print(news)
@@ -38,3 +38,7 @@ def archiveset(request):
         "title": f"Список новостей {request.get_full_path()[9:-1]}"
     }
     return render(request, "news/test.html", context)
+
+
+def sitemap(request):
+    return render(request, "news/sitemap.html")
