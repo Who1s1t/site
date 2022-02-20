@@ -6,7 +6,9 @@
 </head>
 <body>
 <h1>{{title}}</h1>
-{%for i in news:%}
+{%for i in news%}
+<h2>{{i}}</h2>
+<p>{{i.text}}</p>
 
 {%endfor%}
 </body>
