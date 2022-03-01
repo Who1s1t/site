@@ -3,7 +3,7 @@ from django.db import models
 
 class MyModel(models.Model):
     # id = models.BigIntegerField()
-    caption = models.CharField(max_length=100,verbose_name="Заголовок")
+    caption = models.CharField(max_length=100, verbose_name="Заголовок")
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновленно")
@@ -18,5 +18,7 @@ class MyModel(models.Model):
         verbose_name_plural = "Новости"
         ordering = ['id']
 
+
 class Category(models.Model):
     category = models.CharField(max_length=100, db_index=True)
+    news = models.ForeignKey(MyModel, on_delete=models.CASCADE)
