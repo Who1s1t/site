@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 def test(request):
     print(request)
-    news = MyModel.objects.filter(is_published=True)
+    news = MyModel.objects.all()
     # res = "<h1>Новости</h1>"
     # for i in news:
     #   res += f"\n<p>{i.caption}</p>\n<p>{i.text}</p>\n<p>{i.created_at}</p>\n<hr>"
@@ -31,7 +31,7 @@ def archive(request):
 def archiveset(request):
     date = list(map(int, request.get_full_path()[9:-1].split('-')))
     print(date)
-    news = MyModel.objects.filter(created_at__date=datetime.date(date[0], date[1], date[2]), is_published=True)
+    news = MyModel.objects.filter(created_at__date=datetime.date(date[0], date[1], date[2]))
     print(news)
     context = {
         "news": news,
