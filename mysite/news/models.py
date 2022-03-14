@@ -23,6 +23,9 @@ class MyModel(models.Model):
     is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
     category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
 
+    def hello(self):
+        return "Hello word"
+
     def __str__(self):
         return self.caption
 

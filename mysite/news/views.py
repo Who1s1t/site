@@ -7,6 +7,7 @@ from django.shortcuts import render
 # Create your views here.
 
 def test(request):
+
     print(request)
     news = MyModel.objects.all()
     # res = "<h1>Новости</h1>"
