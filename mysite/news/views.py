@@ -2,6 +2,7 @@ from django.http import HttpResponse
 import datetime
 from news.models import MyModel
 from django.shortcuts import render
+from django.conf import settings
 
 
 # Create your views here.
@@ -14,6 +15,7 @@ def test(request):
     # for i in news:
     #   res += f"\n<p>{i.caption}</p>\n<p>{i.text}</p>\n<p>{i.created_at}</p>\n<hr>"
     context = {
+        "MEDIA_URL": settings.MEDIA_URL,
         "news": news,
         "title": "Список новостей"
     }
@@ -35,6 +37,7 @@ def archiveset(request):
     news = MyModel.objects.filter(created_at__date=datetime.date(date[0], date[1], date[2]))
     print(news)
     context = {
+        "MEDIA_URL": settings.MEDIA_URL,
         "news": news,
         "title": f"Список новостей {request.get_full_path()[9:-1]}"
     }

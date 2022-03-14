@@ -54,7 +54,11 @@
     <p class="card-text">{{i.text}}</p>
     <p class="card-text"><small class="text-muted">{{i.created_at}}</small></p>
   </div>
-  <img src="/2022/02/22/first_bg.jpg" class="card-img-bottom" alt="/2022/02/22/first_bg.jpg">
+  {% if i.photo%}
+  <img src="{{MEDIA_URL}}{{i.photo}}" class="card-img-bottom" alt="NOT FOUND">
+  {% else %}
+  <img src="{{MEDIA_URL}}/news/img.png" class="card-img-bottom" alt="NOT FOUND">
+  {% endif %}
     {%endfor%}
 </div>
 
