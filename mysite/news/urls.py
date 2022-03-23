@@ -7,7 +7,7 @@ from news.models import MyModel
 urlpatterns = [
     path('', test),
     path('archive/', archive),
-    path('category/<int:category_id>', get_category)
+    path('category/<int:category_id>', get_category, name="cty_id")
 ]
 for i in [i.strftime("%Y-%m-%d") for i in MyModel.objects.dates('created_at', "day", order='ASC')]:
     urlpatterns.append(path(f'archive/{i}/', archiveset))
