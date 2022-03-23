@@ -44,10 +44,6 @@ def archiveset(request):
     return render(request, "news/test.html", context)
 
 
-def sitemap(request):
-    return render(request, "news/sitemap.html")
-
-
 def get_category(request, category_id):
     news = MyModel.objects.filter(category=category_id)
     ct = Category.objects.all()
@@ -56,4 +52,4 @@ def get_category(request, category_id):
         "news": news,
         "title": Category.objects.get(pk=category_id).category
     }
-    return render(request,"news/category_get.html",context)
+    return render(request, "news/category_get.html", context)
