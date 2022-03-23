@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 import datetime
-from news.models import MyModel
+from news.models import MyModel, Category
 from django.shortcuts import render
 from django.conf import settings
 
@@ -8,14 +8,14 @@ from django.conf import settings
 # Create your views here.
 
 def test(request):
-
     print(request)
     news = MyModel.objects.all()
+    ct = Category.objects.all()
     # res = "<h1>Новости</h1>"
     # for i in news:
     #   res += f"\n<p>{i.caption}</p>\n<p>{i.text}</p>\n<p>{i.created_at}</p>\n<hr>"
     context = {
-        "MEDIA_URL": settings.MEDIA_URL,
+        "categories": ct,
         "news": news,
         "title": "Список новостей"
     }
@@ -37,7 +37,7 @@ def archiveset(request):
     news = MyModel.objects.filter(created_at__date=datetime.date(date[0], date[1], date[2]))
     print(news)
     context = {
-        "MEDIA_URL": settings.MEDIA_URL,
+
         "news": news,
         "title": f"Список новостей {request.get_full_path()[9:-1]}"
     }
@@ -46,3 +46,14 @@ def archiveset(request):
 
 def sitemap(request):
     return render(request, "news/sitemap.html")
+
+
+def get_category(request, category_id):
+    news = MyModel.objects.filter(category=category_id)
+    ct = Category.objects.all()
+    context = {
+        "categories": ct,
+        "news": news,
+        "title": Category.objects.get(pk=category_id).category
+    }
+    return render(request,"news/category_get.html",context)
