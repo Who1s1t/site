@@ -1,5 +1,5 @@
 from django.urls import path
-from news.views import test, archive, archiveset,get_category
+from news.views import test, archive, archiveset, get_category
 from news.models import MyModel
 
 # TODO создаем файлик urls.py для разветвления
