@@ -19,7 +19,7 @@ def test(request):
         "news": news,
         "title": "Список новостей"
     }
-    return render(request, "news/test.html", context)
+    return render(request, "news/news_list.html", context)
 
 
 def archive(request):
