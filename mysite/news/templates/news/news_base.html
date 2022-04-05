@@ -3,7 +3,7 @@
 {%block content%}
 {%include "news/inc/_nav.html"%}
 <div class="container mt-5">
-    <h1>{{title}}</h1>
+    <h1>{%block t%}{{title}}{%endblock%}</h1>
 
     <div class="row">
         <div class="col-md-2">

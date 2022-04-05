@@ -18,9 +18,9 @@
             <div class="flex-grow-1 ms-3">
                 <h5 class="card-title">{{i.caption}}</h5>
 
-                <p class="card-text">{{i.text|truncatewords:15}}</p>
+                <p class="card-text">{%block text%}{{i.text|truncatewords:15}}{%endblock%}</p>
 
-                <a href="#" class="btn btn-primary">fffffffff</a>
+                {%block button%}<a href="#" class="btn btn-primary">fffffffff</a>{%endblock%}
             </div>
         </div>
     </div>
