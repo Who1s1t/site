@@ -3,17 +3,15 @@ import datetime
 from news.models import MyModel, Category
 from django.shortcuts import render
 from django.conf import settings
-
+def ct_get():
+    return Category.objects.all()
 
 # Create your views here.
 
 def test(request):
     print(request)
     news = MyModel.objects.all()
-    ct = Category.objects.all()
-    # res = "<h1>Новости</h1>"
-    # for i in news:
-    #   res += f"\n<p>{i.caption}</p>\n<p>{i.text}</p>\n<p>{i.created_at}</p>\n<hr>"
+    ct = ct_get()
     context = {
         "categories": ct,
         "news": news,
@@ -46,7 +44,7 @@ def archiveset(request):
 
 def get_category(request, category_id):
     news = MyModel.objects.filter(category=category_id)
-    ct = Category.objects.all()
+    ct = ct_get()
     context = {
         "categories": ct,
         "news": news,
