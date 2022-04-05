@@ -52,4 +52,4 @@ def get_category(request, category_id):
         "news": news,
         "title": Category.objects.get(pk=category_id).category
     }
-    return render(request, "news/category_get.html", context)
+    return render(request, "news/news_list.html", context)
