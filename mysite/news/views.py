@@ -59,20 +59,20 @@ def get_category(request, category_id):
 
 def add_news(request):
     if request.method == 'POST':
-        form = Add_newsForm(request.POST)
+        form = Add_newsForm(request.POST)  # тут все круто
         if form.is_valid():
             print(form.cleaned_data["caption"])
             print(form.cleaned_data["text"])
             print(form.cleaned_data["is_published"])
             print(form.cleaned_data["category"])
-            #form.save()
+            # form.save()
     else:
         form = Add_newsForm()
     return render(request, "news/add_news.html", {"categories": ct_get(), "form": form})
 
 
 def news_one(request, news_id):
-    news = MyModel.objects.filter(pk=news_id)
+    news = MyModel.objects.filter(pk=news_id)  # тут тебе cкорее не filter нужен, а get
     ct = ct_get()
     context = {
         "categories": ct,
