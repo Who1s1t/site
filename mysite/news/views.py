@@ -2,7 +2,7 @@ from django.http import HttpResponse
 import datetime
 from news.models import MyModel, Category
 from django.shortcuts import render
-from news.forms import Add_newsForm
+from news.forms import AddnewsForm
 from django.conf import settings
 
 
@@ -59,7 +59,7 @@ def get_category(request, category_id):
 
 def add_news(request):
     if request.method == 'POST':
-        form = Add_newsForm(request.POST)  # тут все круто
+        form = AddnewsForm(request.POST)  # тут все круто
         if form.is_valid():
             print(form.cleaned_data["caption"])
             print(form.cleaned_data["text"])
@@ -67,12 +67,12 @@ def add_news(request):
             print(form.cleaned_data["category"])
             # form.save()
     else:
-        form = Add_newsForm()
+        form = AddnewsForm()
     return render(request, "news/add_news.html", {"categories": ct_get(), "form": form})
 
 
 def news_one(request, news_id):
-    news = MyModel.objects.filter(pk=news_id)  # тут тебе cкорее не filter нужен, а get
+    news = MyModel.objects.filter(pk=news_id)
     ct = ct_get()
     context = {
         "categories": ct,
