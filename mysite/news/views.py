@@ -2,6 +2,7 @@ from django.http import HttpResponse
 import datetime
 from news.models import MyModel, Category
 from django.shortcuts import render
+from news.forms import Add_newsForm
 from django.conf import settings
 def ct_get():
     return Category.objects.all()
@@ -51,3 +52,10 @@ def get_category(request, category_id):
         "title": Category.objects.get(pk=category_id).category
     }
     return render(request, "news/news_list.html", context)
+
+def add_news(request):
+    if request.method == 'POST':
+        pass
+    else:
+        form = Add_newsForm()
+    return render(request,"news/add_news.html",{"categories": ct_get(),"form":form})
