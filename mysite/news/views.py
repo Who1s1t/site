@@ -4,8 +4,11 @@ from news.models import MyModel, Category
 from django.shortcuts import render
 from news.forms import Add_newsForm
 from django.conf import settings
+
+
 def ct_get():
     return Category.objects.all()
+
 
 # Create your views here.
 
@@ -53,9 +56,20 @@ def get_category(request, category_id):
     }
     return render(request, "news/news_list.html", context)
 
+
 def add_news(request):
     if request.method == 'POST':
         pass
     else:
         form = Add_newsForm()
-    return render(request,"news/add_news.html",{"categories": ct_get(),"form":form})
+    return render(request, "news/add_news.html", {"categories": ct_get(), "form": form})
+
+
+def news_one(request, news_id):
+    news = MyModel.objects.filter(pk=news_id)
+    ct = ct_get()
+    context = {
+        "categories": ct,
+        "news": news
+    }
+    return render(request, "news/news_list.html", context)
