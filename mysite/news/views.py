@@ -1,27 +1,27 @@
 from django.http import HttpResponse
 import datetime
+
+from django.views.generic import ListView
+
 from news.models import MyModel, Category
-from django.shortcuts import render
-from news.forms import AddnewsForm
+from django.shortcuts import render, redirect
+from news.forms import AddNewsForm
 from django.conf import settings
 
 
 def ct_get():
     return Category.objects.all()
 
+class ListNews(ListView):
+    model = MyModel
+    template_name = "news/news_list.html"
+    context_object_name = "news"
+    #extra_context = {"title":"Новости","categories":ct_get()}
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Новости"
+        return context
 
-# Create your views here.
-
-def test(request):
-    print(request)
-    news = MyModel.objects.all()
-    ct = ct_get()
-    context = {
-        "categories": ct,
-        "news": news,
-        "title": "Список новостей"
-    }
-    return render(request, "news/news_list.html", context)
 
 
 def archive(request):
@@ -59,15 +59,12 @@ def get_category(request, category_id):
 
 def add_news(request):
     if request.method == 'POST':
-        form = AddnewsForm(request.POST)  # тут все круто
+        form = AddNewsForm(request.POST)  # тут все круто
         if form.is_valid():
-            print(form.cleaned_data["caption"])
-            print(form.cleaned_data["text"])
-            print(form.cleaned_data["is_published"])
-            print(form.cleaned_data["category"])
-            # form.save()
+            news = form.save()
+            return redirect(news)
     else:
-        form = AddnewsForm()
+        form = AddNewsForm()
     return render(request, "news/add_news.html", {"categories": ct_get(), "form": form})
 
 

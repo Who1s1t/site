@@ -33,6 +33,9 @@ class MyModel(models.Model):
     def __str__(self):
         return self.caption
 
+    def get_absolute_url(self):
+        return reverse("one", kwargs={'news_id': self.pk})
+
     class Meta:
         verbose_name = "Новость"
         verbose_name_plural = "Новости"

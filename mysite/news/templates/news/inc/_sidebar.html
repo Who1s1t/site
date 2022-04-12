@@ -1,4 +1,6 @@
+{%load news_tags%}
 <ul class="list-group">
+    {%categories_get as categories%}
     {%for i in categories%}
     <a href="{% url 'cty_id' category_id=i.pk %}" class="list-group-item">{{i.category}}</a>
     {%endfor%}
