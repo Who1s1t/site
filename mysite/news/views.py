@@ -12,16 +12,30 @@ from django.conf import settings
 def ct_get():
     return Category.objects.all()
 
+
 class ListNews(ListView):
     model = MyModel
     template_name = "news/news_list.html"
     context_object_name = "news"
-    #extra_context = {"title":"Новости","categories":ct_get()}
+
+    # extra_context = {"title":"Новости","categories":ct_get()}
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Новости"
         return context
 
+
+class GetCat(ListView):
+    template_name = "news/news_list.html"
+    context_object_name = "news"
+
+    def get_queryset(self, **kwargs):
+        return MyModel.objects.filter(category=self.kwargs['category_id'])
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = Category.objects.get(pk=self.kwargs["category_id"]).category
+        return context
 
 
 def archive(request):
@@ -44,17 +58,6 @@ def archiveset(request):
         "title": f"Список новостей {request.get_full_path()[9:-1]}"
     }
     return render(request, "news/test.html", context)
-
-
-def get_category(request, category_id):
-    news = MyModel.objects.filter(category=category_id)
-    ct = ct_get()
-    context = {
-        "categories": ct,
-        "news": news,
-        "title": Category.objects.get(pk=category_id).category
-    }
-    return render(request, "news/news_list.html", context)
 
 
 def add_news(request):
