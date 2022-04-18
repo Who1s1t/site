@@ -1,4 +1,17 @@
-{%extends "news/news_list.html"%}
-{%block t%}{%endblock%}
-{%block text%}{{i.text}}{%endblock%}
-{%block button%}{%endblock%}
+{%extends "news/news_base.html"%}
+{%block sidebar%}{%endblock%}
+{%block news%}
+<div class="card mb-3">
+    {% if news.photo%}
+    <img src="{{news.photo.url}}" class="card-img-top" style="..." alt="NOT FOUND">
+    {% else %}
+    <img src="/media/news/img.png" class="card-img-top" style="..." alt="NOT FOUND">
+    {% endif %}
+    <div class="card-body">
+        <a href="{{news.category.get_absolute_url}}">{{news.category}}</a>
+        <h5 class="card-title">{{news.caption}}</h5>
+        <p class="card-text">{{news.text}}</p>
+        <p class="card-text"><small class="text-muted">{{news.created_at}}</small></p>
+    </div>
+</div>
+{%endblock%}

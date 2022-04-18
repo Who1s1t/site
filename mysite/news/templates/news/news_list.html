@@ -18,15 +18,14 @@
             <div class="flex-grow-1 ms-3">
                 <h5 class="card-title">{{i.caption}}</h5>
 
-                <p class="card-text">{%block text%}{{i.text|truncatewords:15}}{%endblock%}</p>
+                <p class="card-text">{{i.text|truncatewords:15}}</p>
 
-                {%block button%}<a href="#" class="btn btn-primary">fffffffff</a>{%endblock%}
+                <a href="{% url 'one' news_id=i.pk %}" class="btn btn-primary">Читать</a>
             </div>
         </div>
     </div>
 
     <div class="card-footer text-muted">
-        {{i.created_at}}
 
     </div>
 </div>

@@ -69,10 +69,8 @@ def add_news(request):
 
 
 def news_one(request, news_id):
-    news = MyModel.objects.filter(pk=news_id)
-    ct = ct_get()
+    news = MyModel.objects.get(pk=news_id)
     context = {
-        "categories": ct,
         "news": news
     }
-    return render(request, "news/news_list.html", context)
+    return render(request, "news/news_one.html", context)
