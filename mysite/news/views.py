@@ -26,6 +26,8 @@ class ListNews(ListView):
 
 
 class GetCat(ListView):
+    # todo тут добавить бы сайдбар, а от он где-то потерялся бедняга
+
     template_name = "news/news_list.html"
     context_object_name = "news"
 
