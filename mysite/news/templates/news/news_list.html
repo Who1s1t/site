@@ -20,7 +20,7 @@
 
                 <p class="card-text">{{i.text|truncatewords:15}}</p>
 
-                <a href="{% url 'one' news_id=i.pk %}" class="btn btn-primary">Читать</a>
+                <a href="{% url 'one' pk=i.pk %}" class="btn btn-primary">Читать</a>
             </div>
         </div>
     </div>

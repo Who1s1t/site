@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 import datetime
 
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, CreateView
 
 from news.models import MyModel, Category
 from django.shortcuts import render, redirect
@@ -9,8 +9,6 @@ from news.forms import AddNewsForm
 from django.conf import settings
 
 
-def ct_get():
-    return Category.objects.all()
 
 
 class ListNews(ListView):
@@ -26,8 +24,6 @@ class ListNews(ListView):
 
 
 class GetCat(ListView):
-    # todo тут добавить бы сайдбар, а от он где-то потерялся бедняга
-
     template_name = "news/news_list.html"
     context_object_name = "news"
 
@@ -39,6 +35,16 @@ class GetCat(ListView):
         context["title"] = Category.objects.get(pk=self.kwargs["category_id"]).category
         return context
 
+class DetailNews(DetailView):
+    model = MyModel
+    template_name = "news/news_one.html"
+    context_object_name = "news"
+    # pk_url_kwarg = 'news_id'
+
+class AddNews(CreateView):
+    model = MyModel
+    form_class = AddNewsForm
+    template_name = "news/add_news.html"
 
 def archive(request):
     news = [i.strftime("%Y-%m-%d") for i in MyModel.objects.dates('created_at', "day", order='ASC')]
@@ -62,20 +68,20 @@ def archiveset(request):
     return render(request, "news/test.html", context)
 
 
-def add_news(request):
-    if request.method == 'POST':
-        form = AddNewsForm(request.POST)  # тут все круто
-        if form.is_valid():
-            news = form.save()
-            return redirect(news)
-    else:
-        form = AddNewsForm()
-    return render(request, "news/add_news.html", {"categories": ct_get(), "form": form})
-
-
-def news_one(request, news_id):
-    news = MyModel.objects.get(pk=news_id)
-    context = {
-        "news": news
-    }
-    return render(request, "news/news_one.html", context)
+# def add_news(request):
+#     if request.method == 'POST':
+#         form = AddNewsForm(request.POST)  # тут все круто
+#         if form.is_valid():
+#             news = form.save()
+#             return redirect(news)
+#     else:
+#         form = AddNewsForm()
+#     return render(request, "news/add_news.html", {"categories": ct_get(), "form": form})
+#
+#
+# def news_one(request, news_id):
+#     news = MyModel.objects.get(pk=news_id)
+#     context = {
+#         "news": news
+#     }
+#     return render(request, "news/news_one.html", context)
