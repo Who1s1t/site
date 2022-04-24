@@ -17,7 +17,7 @@ class Category(models.Model):
         ordering = ['id']
 
 
-class MyModel(models.Model):
+class News(models.Model):
     # id = models.BigIntegerField()
     caption = models.CharField(max_length=100, verbose_name="Заголовок")
     text = models.TextField()

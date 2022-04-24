@@ -1,13 +1,13 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import Textarea, Select, TextInput, CheckboxInput
-from news.models import MyModel
+from news.models import News
 import re
 
 class AddNewsForm(forms.ModelForm):
     # title = forms.CharField()
     class Meta:
-        model = MyModel
+        model = News
         fields = ["caption", "text", "is_published", 'category']
         widgets = {'caption': TextInput(attrs={'class': "form-control", 'cols': 40, 'rows': 1}),
                    'text': Textarea(attrs={'class': "form-control", 'cols': 40, 'rows': 10}),

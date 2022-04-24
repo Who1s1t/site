@@ -3,7 +3,7 @@ import datetime
 
 from django.views.generic import ListView, DetailView, CreateView
 
-from news.models import MyModel, Category
+from news.models import News, Category
 from django.shortcuts import render, redirect
 from news.forms import AddNewsForm
 from django.conf import settings
@@ -12,7 +12,7 @@ from django.conf import settings
 
 
 class ListNews(ListView):
-    model = MyModel
+    model = News
     template_name = "news/news_list.html"
     context_object_name = "news"
 
@@ -28,7 +28,7 @@ class GetCat(ListView):
     context_object_name = "news"
 
     def get_queryset(self, **kwargs):
-        return MyModel.objects.filter(category=self.kwargs['category_id'])
+        return News.objects.filter(category=self.kwargs['category_id'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,18 +36,18 @@ class GetCat(ListView):
         return context
 
 class DetailNews(DetailView):
-    model = MyModel
+    model = News
     template_name = "news/news_one.html"
     context_object_name = "news"
     # pk_url_kwarg = 'news_id'
 
 class AddNews(CreateView):
-    model = MyModel
+    model = News
     form_class = AddNewsForm
     template_name = "news/add_news.html"
 
 def archive(request):
-    news = [i.strftime("%Y-%m-%d") for i in MyModel.objects.dates('created_at', "day", order='ASC')]
+    news = [i.strftime("%Y-%m-%d") for i in News.objects.dates('created_at', "day", order='ASC')]
     context = {
         "news": news,
         "title": "Список новостей"
@@ -58,7 +58,7 @@ def archive(request):
 def archiveset(request):
     date = list(map(int, request.get_full_path()[9:-1].split('-')))
     print(date)
-    news = MyModel.objects.filter(created_at__date=datetime.date(date[0], date[1], date[2]))
+    news = News.objects.filter(created_at__date=datetime.date(date[0], date[1], date[2]))
     print(news)
     context = {
 
@@ -80,7 +80,7 @@ def archiveset(request):
 #
 #
 # def news_one(request, news_id):
-#     news = MyModel.objects.get(pk=news_id)
+#     news = News.objects.get(pk=news_id)
 #     context = {
 #         "news": news
 #     }

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from news.models import MyModel, Category
+from news.models import News, Category
 
 
 # Register your models here.
@@ -16,5 +16,5 @@ class Category_Admin(admin.ModelAdmin):
     search_fields = ('category',)
 
 
-admin.site.register(MyModel, MyModel_Admin)
+admin.site.register(News, MyModel_Admin)
 admin.site.register(Category, Category_Admin)
