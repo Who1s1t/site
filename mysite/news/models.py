@@ -19,13 +19,15 @@ class Category(models.Model):
 
 class News(models.Model):
     # id = models.BigIntegerField()
-    caption = models.CharField(max_length=100, verbose_name="Заголовок")
-    text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    caption = models.CharField(null=True,max_length=100, verbose_name="Заголовок")
+    text = models.TextField(null=True)
+    created_at = models.DateTimeField(null=True,auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновленно")
     photo = models.ImageField(upload_to="news/%Y/%m/%d", blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
     category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
+    likes = models.BigIntegerField(default=0)
+    views = models.BigIntegerField(default=0)
 
     def hello(self):
         return "Hello word"
