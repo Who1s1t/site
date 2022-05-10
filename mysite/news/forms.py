@@ -19,7 +19,7 @@ class AddNewsForm(forms.ModelForm):
             'text': ('Текст новости'),
         }
 
-    def clean_caption(self):
-        caption = self.cleaned_data["caption"]
-        if re.match(r"\d", caption):
-            raise ValidationError("Назване не должно начинать с цифр!!!")
+    # def clean_caption(self):
+    #     caption = self.cleaned_data["caption"]
+    #     if re.match(r"\d", caption):
+    #         raise ValidationError("Назване не должно начинать с цифр!!!")

@@ -18,7 +18,7 @@ class Category(models.Model):
 
 
 class News(models.Model):
-    # id = models.BigIntegerField()
+    #id = models.BigIntegerField(primary_key=True)
     caption = models.CharField(null=True,max_length=100, verbose_name="Заголовок")
     text = models.TextField(null=True)
     created_at = models.DateTimeField(null=True,auto_now_add=True, verbose_name="Дата создания")
