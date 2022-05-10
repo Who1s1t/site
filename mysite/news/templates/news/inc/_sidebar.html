@@ -2,6 +2,10 @@
 <ul class="list-group">
     {%categories_get as categories%}
     {%for i in categories%}
-    <a href="{% url 'cty_id' category_id=i.pk %}" class="list-group-item">{{i.category}}</a>
+    <a href="{% url 'cty_id' category_id=i.pk %}"
+       class="list-group-item d-flex justify-content-between align-items-center">
+        {{i.category}}
+        <span class="badge bg-primary rounded-pill">{{i.category__count}}</span>
+    </a>
     {%endfor%}
 </ul>
