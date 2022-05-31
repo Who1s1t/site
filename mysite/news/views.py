@@ -1,11 +1,13 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 import datetime
 
+from django.urls import  reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
 from news.models import News, Category
 from django.shortcuts import render, redirect
-from news.forms import AddNewsForm
+from news.forms import AddNewsForm,AddUserForm
 from django.conf import settings
 
 
@@ -46,6 +48,12 @@ class AddNews(CreateView):
     form_class = AddNewsForm
     template_name = "news/add_news.html"
 
+class AddUser(CreateView):
+    model = User
+    form_class = AddUserForm
+    template_name = "news/add_user.html"
+    success_url = reverse_lazy("addu")
+
 def archive(request):
     news = [i.strftime("%Y-%m-%d") for i in News.objects.dates('created_at', "day", order='ASC')]
     context = {
@@ -85,3 +93,4 @@ def archiveset(request):
 #         "news": news
 #     }
 #     return render(request, "news/news_one.html", context)
+
