@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import AbstractUser
 
 
 class Category(models.Model):
@@ -21,7 +22,7 @@ class News(models.Model):
     #id = models.BigIntegerField(primary_key=True)
     caption = models.CharField(null=True,max_length=100, verbose_name="Заголовок")
     text = models.TextField(null=True)
-    created_at = models.DateTimeField(null=True,auto_now_add=True, verbose_name="Дата создания")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновленно")
     photo = models.ImageField(upload_to="news/%Y/%m/%d", blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
@@ -42,3 +43,10 @@ class News(models.Model):
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
         ordering = ['id']
+
+class CustomUser(AbstractUser):
+    pass
+    # add additional fields in here
+
+    def __str__(self):
+        return self.username
