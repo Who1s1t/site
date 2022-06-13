@@ -146,3 +146,5 @@ EMAIL_HOST_PASSWORD = '0lUvT0Rd6'
 EMAIL_PORT = 465
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
+
+

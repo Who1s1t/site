@@ -1,5 +1,7 @@
+from PIL import ImageEnhance
+from PIL.Image import Image
 from django.db import models
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
@@ -69,3 +71,27 @@ def delete_photo(sender, instance=None, created=False, **kwargs):
     if instance.photo:
         storage, path = instance.photo.storage, instance.photo.path
         storage.delete(path)
+
+
+# @receiver(post_save, sender=CustomUser)
+# def delete_photo(sender, instance=None, created=False, **kwargs):
+#     if instance.photo:
+#         storage, path = instance.photo.storage, instance.photo.path
+#
+#     def transparency(filename1, filename2):
+#         im = Image.open(filename1)
+#         im1 = Image.open(filename2)
+#         pixels = im.load()  # список с пикселями
+#         pixels1 = im1.load()
+#         x, y = im.size  # ширина (x) и высота (y) изображения
+#         im0 = Image.new("RGB", (x, y), (0, 255, 0))
+#         pixels0 = im0.load()
+#
+#         for i in range(x):
+#             for j in range(y):
+#                 r, g, b = pixels[i, j]
+#                 r1, g1, b1 = pixels1[i, j]
+#                 pixels0[i, j] = int(0.5 * r1 + 0.5 * r), int(0.5 * g1 + 0.5 * g), int(0.5 * b1 + 0.5 * b)
+#
+#         im0.save("res.jpg")
+# а как дальше ?
