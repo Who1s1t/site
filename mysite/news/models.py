@@ -48,6 +48,9 @@ class News(models.Model):
 
 
 class CustomUser(AbstractUser):
+    likes = models.BigIntegerField(default=0)
+    comments = models.BigIntegerField(default=0)
+
     photo = models.ImageField(upload_to="news/user/%Y/%m/%d", blank=True)
     GENDER_CHOICES = (
         ("M", "Male"),
