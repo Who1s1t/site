@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 import re
 
+
 class AddNewsForm(forms.ModelForm):
     # title = forms.CharField()
     class Meta:
@@ -26,6 +27,7 @@ class AddNewsForm(forms.ModelForm):
     #     caption = self.cleaned_data["caption"]
     #     if re.match(r"\d", caption):
     #         raise ValidationError("Назване не должно начинать с цифр!!!")
+
 
 # class AddUserForm(forms.ModelForm):
 #     photo = forms.ImageField(required=False)
@@ -53,15 +55,13 @@ class AddNewsForm(forms.ModelForm):
 #         return      user
 
 
-
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta:
         model = CustomUser
-        fields = ('username', 'email')
+        fields = ('username', 'email', "photo", "gender")
+
 
 class CustomUserChangeForm(UserChangeForm):
-
     class Meta:
         model = CustomUser
         fields = ('username', 'email')

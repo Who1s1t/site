@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 
@@ -19,8 +21,8 @@ class Category(models.Model):
 
 
 class News(models.Model):
-    #id = models.BigIntegerField(primary_key=True)
-    caption = models.CharField(null=True,max_length=100, verbose_name="Заголовок")
+    # id = models.BigIntegerField(primary_key=True)
+    caption = models.CharField(null=True, max_length=100, verbose_name="Заголовок")
     text = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновленно")
@@ -44,9 +46,23 @@ class News(models.Model):
         verbose_name_plural = "Новости"
         ordering = ['id']
 
+
 class CustomUser(AbstractUser):
-    pass
+    photo = models.ImageField(upload_to="news/user/%Y/%m/%d", blank=True)
+    GENDER_CHOICES = (
+        ("M", "Male"),
+        ("F", "Female")
+    )
+    gender = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES)
+
     # add additional fields in here
 
     def __str__(self):
         return self.username
+
+
+@receiver(pre_delete, sender=CustomUser)
+def delete_photo(sender, instance=None, created=False, **kwargs):
+    if instance.photo:
+        storage, path = instance.photo.storage, instance.photo.path
+        storage.delete(path)
