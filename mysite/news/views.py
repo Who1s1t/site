@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.http import HttpResponse
 import datetime
 
@@ -52,6 +53,19 @@ class AddUser(CreateView):
      form_class = CustomUserCreationForm
      template_name = "news/add_user.html"
      success_url = reverse_lazy("login")
+
+     # def post(self, request, *args, **kwargs):
+     #     """
+     #     Handle POST requests: instantiate a form instance with the passed
+     #     POST variables and then check if it's valid.
+     #     """
+     #     form = self.get_form()
+     #     if form.is_valid():
+     #         email = request.POST['email']
+     #         send_mail(subject ='1', message ='2', recipient_list=[email],from_email='freegtamammon@mail.ru')
+     #         return self.form_valid(form)
+     #     else:
+     #         return self.form_invalid(form)
 
 def archive(request):
     news = [i.strftime("%Y-%m-%d") for i in News.objects.dates('created_at', "day", order='ASC')]

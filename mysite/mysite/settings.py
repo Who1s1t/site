@@ -138,3 +138,11 @@ AUTH_USER_MODEL = 'news.CustomUser'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+DEFAULT_FROM_EMAIL = 'freegtamammon@mail.ru'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST_USER = 'freegtamammon@mail.ru'
+EMAIL_HOST_PASSWORD = '0lUvT0Rd6'
+EMAIL_PORT = 465
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
