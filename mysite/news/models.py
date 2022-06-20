@@ -1,10 +1,14 @@
+import os
+
 from PIL import ImageEnhance
-from PIL.Image import Image
+from PIL import Image
 from django.db import models
 from django.db.models.signals import pre_delete, post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
+
+from mysite.settings import BASE_DIR
 
 
 class Category(models.Model):
@@ -66,6 +70,14 @@ class CustomUser(AbstractUser):
         return self.username
 
 
+class Comments(models.Model):
+    ip = models.GenericIPAddressField()
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True,related_name="commentaries")
+    news = models.ForeignKey(News, on_delete=models.CASCADE,related_name="commentaries_news")
+    parent = models.ForeignKey("self", on_delete=models.CASCADE,null=True,blank=True,related_name="commentaries_parent")
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+
 @receiver(pre_delete, sender=CustomUser)
 def delete_photo(sender, instance=None, created=False, **kwargs):
     if instance.photo:
@@ -73,25 +85,35 @@ def delete_photo(sender, instance=None, created=False, **kwargs):
         storage.delete(path)
 
 
-# @receiver(post_save, sender=CustomUser)
-# def delete_photo(sender, instance=None, created=False, **kwargs):
-#     if instance.photo:
-#         storage, path = instance.photo.storage, instance.photo.path
-#
-#     def transparency(filename1, filename2):
-#         im = Image.open(filename1)
-#         im1 = Image.open(filename2)
-#         pixels = im.load()  # список с пикселями
-#         pixels1 = im1.load()
-#         x, y = im.size  # ширина (x) и высота (y) изображения
-#         im0 = Image.new("RGB", (x, y), (0, 255, 0))
-#         pixels0 = im0.load()
-#
-#         for i in range(x):
-#             for j in range(y):
-#                 r, g, b = pixels[i, j]
-#                 r1, g1, b1 = pixels1[i, j]
-#                 pixels0[i, j] = int(0.5 * r1 + 0.5 * r), int(0.5 * g1 + 0.5 * g), int(0.5 * b1 + 0.5 * b)
-#
-#         im0.save("res.jpg")
+@receiver(post_save, sender=CustomUser)
+def delete_photo(sender, instance=None, created=False, **kwargs):
+    if instance.photo:
+        storage, image_path = instance.photo.storage, instance.photo.path
+        watermark_path = os.path.join(BASE_DIR, 'media\\img.jpg')
+        opacity = 0.5
+        wm_interval = 0
+
+        image = Image.open(image_path)
+        watermark = Image.open(watermark_path)
+
+        if watermark.mode != 'RGBA':
+            watermark = watermark.convert('RGBA')
+        else:
+            watermark = watermark.copy()
+        alpha = watermark.split()[3]
+        alpha = ImageEnhance.Brightness(alpha).enhance(opacity)
+        watermark.putalpha(alpha)
+
+        layer = Image.new('RGBA', image.size, (0, 0, 0, 0))
+
+        for y in range(0, image.size[1], watermark.size[1] + wm_interval):
+            for x in range(0, image.size[0], watermark.size[0] + wm_interval):
+                layer.paste(watermark, (x, y))
+
+        Image.composite(layer, image, layer).save(image_path)
+
+
+
+
+
 # а как дальше ?

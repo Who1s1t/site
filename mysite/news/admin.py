@@ -1,5 +1,5 @@
 from django.contrib import admin
-from news.models import News, Category
+from news.models import News, Category, Comments
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser
 from django.contrib.auth import get_user_model
@@ -13,6 +13,10 @@ class MyModel_Admin(admin.ModelAdmin):
     search_fields = ('caption', 'text')
     list_filter = ("is_published", "category")
     list_editable = ("is_published", "category")
+
+class Comments_Admin(admin.ModelAdmin):
+    list_display = ('id', 'user', "news", "created_at", "parent", "ip")
+    list_display_links = ('id', 'news')
 
 
 class Category_Admin(admin.ModelAdmin):
@@ -31,3 +35,4 @@ class CustomUser_Admin(UserAdmin):
 admin.site.register(News, MyModel_Admin)
 admin.site.register(Category, Category_Admin)
 admin.site.register(CustomUser, CustomUser_Admin)
+admin.site.register(Comments,Comments_Admin)
