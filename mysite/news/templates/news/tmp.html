@@ -1,0 +1,9 @@
+{%extends "news/news_base.html"%}
+{%block t%}Добавление новости{%endblock%}
+{%block news%}
+<form  method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{%endblock%}

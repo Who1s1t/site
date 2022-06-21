@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from news.models import News, Category, Comments
 from django.shortcuts import render, redirect
-from news.forms import AddNewsForm, CustomUserCreationForm
+from news.forms import AddNewsForm, CustomUserCreationForm, AddComments
 from django.conf import settings
 
 
@@ -53,6 +53,12 @@ class AddNews(CreateView):
     model = News
     form_class = AddNewsForm
     template_name = "news/add_news.html"
+
+
+class AddCommentss(CreateView):
+    model = Comments
+    form_class = AddComments
+    template_name = "news/tmp.html"
 
 class AddUser(CreateView):
      form_class = CustomUserCreationForm

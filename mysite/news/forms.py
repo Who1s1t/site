@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import Textarea, Select, TextInput, CheckboxInput
-from news.models import News
+from news.models import News, Comments
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 import re
@@ -65,4 +65,11 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email')
+
+class AddComments(forms.ModelForm):
+    # title = forms.CharField()
+    class Meta:
+        model = Comments
+        fields = ["ip","text",'news',"parent"]
+
 
