@@ -6,7 +6,7 @@ import datetime
 from django.urls import  reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from news.models import News, Category
+from news.models import News, Category, Comments
 from django.shortcuts import render, redirect
 from news.forms import AddNewsForm, CustomUserCreationForm
 from django.conf import settings
@@ -42,6 +42,11 @@ class DetailNews(DetailView):
     model = News
     template_name = "news/news_one.html"
     context_object_name = "news"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context["comments"] = Comments.objects.get(news=self.kwargs["pk"])
+        return context
     # pk_url_kwarg = 'news_id'
 
 class AddNews(CreateView):

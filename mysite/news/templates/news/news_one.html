@@ -12,6 +12,13 @@
         <h5 class="card-title">{{news.caption}}</h5>
         <p class="card-text">{{news.text}}</p>
         <p class="card-text"><small class="text-muted">{{news.created_at}}</small></p>
+        <div class="container">
+          <img src="{{comments.user.photo.url}}" alt="NOT FOUND" style="width:90px">
+          <p><span>Chris Fox.</span> CEO at Mighty Schools.</p>
+          <p>HTML CSS saved us from a web disaster.</p>
+        </div>
+
+<!--        <p class="card-text"><small class="text-muted">{{comments.text}}</small></p>-->
     </div>
 </div>
 {%endblock%}

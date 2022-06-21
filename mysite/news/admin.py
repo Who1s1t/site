@@ -30,6 +30,7 @@ class CustomUser_Admin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
     list_display = ['email', 'username', "photo", "gender"]
+    list_display_links = ('email','username')
 
 
 admin.site.register(News, MyModel_Admin)
