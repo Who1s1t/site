@@ -32,8 +32,15 @@
                 </li>
             </ul>
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                {% if user.is_authenticated %}
+
+                    <p class="btn btn-outline-success">Hi {{ user.username }}!</p>
+                    <p><a href="{% url 'logout' %}" class="btn btn-outline-success">logout</a></p>
+                {% else %}
+<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+                    <a class="btn btn-outline-success" href="/login">Вход</a>
+                    <a class="btn btn-outline-success" href="/add_user">Регистрация</a>
+                {% endif %}
             </form>
         </div>
     </div>
